@@ -1,0 +1,59 @@
+//
+//  main.cpp
+//  c*fuxi
+//
+//  Created by Apple on 15/5/16.
+//  Copyright (c) 2015年 Apple. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+class complex
+{
+private:
+    float real;
+    float imag;
+public:
+    complex(float r=0,float i=0);
+    friend ostream & operator <<(ostream &out,const complex &);
+    friend istream & operator >>(istream & in,complex &);
+    complex operator ++(int);
+};
+complex::complex(float r,float i)
+{
+    real=r;
+    imag=i;
+}
+complex complex::operator ++(int)
+{
+    complex temp(*this);
+    real++;
+    imag++;
+    return temp;
+}
+istream & operator >>(istream & in,complex & obj)
+{
+    in>>obj.real;
+    in>>obj.imag;
+    return in;
+}
+ostream & operator <<(ostream & out,const complex & obj)
+{
+    out<<obj.real;
+    if(obj.imag!=0)
+    {
+        if(obj.imag>0)  out<<"+";
+        out<<obj.imag<<"i";
+    }
+    out<<endl;
+    return out;
+}
+int main()
+{
+    complex b,c(3.2,7.8);
+    cin>>b;
+    cout<<b<<c;
+    b=c++;
+    cout<<b<<c;
+    return 0;
+}
